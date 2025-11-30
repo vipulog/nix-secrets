@@ -20,6 +20,7 @@ creation_rules:
       - age:
           - *vipul
           - *vipul_laptop
+          - *vipul_desktop
   - path_regex: ^secrets/sops/laptop\.yaml$
     key_groups:
       - age:
