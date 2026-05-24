@@ -7,22 +7,15 @@ This repository manages secrets for my personal [Nix configurations](https://git
 - [Overview](#overview)
 - [Prerequisites](#prerequisites)
 - [Repository Structure](#repository-structure)
-  - [Unencrypted Secrets](#unencrypted-secrets)
-  - [Encrypted Secrets](#encrypted-secrets)
-    - [Access Control](#access-control)
+  - [Access Control](#access-control)
 - [Usage](#usage)
   - [Flake Integration](#flake-integration)
-  - [Using Unencrypted Secrets](#using-unencrypted-secrets)
-  - [Using Encrypted Secrets](#using-encrypted-secrets)
-    - [NixOS Configuration](#nixos-configuration)
-    - [Home Manager Configuration](#home-manager-configuration)
+  - [NixOS Configuration](#nixos-configuration)
+  - [Home Manager Configuration](#home-manager-configuration)
 
 ## Overview
 
-This repository is designed to be imported as a flake input into my personal Nix configurations, providing a structured approach to secret management by separating them into two distinct categories:
-
-1. **Unencrypted Secrets**: For non-sensitive data that can be stored in plaintext.
-1. **Encrypted Secrets**: For sensitive information like passwords and API tokens, encrypted using `sops` with `age` keys.
+This repository is designed to be imported as a flake input into my personal Nix configurations, providing a structured approach to secret management using `sops` with `age` keys.
 
 ## Prerequisites
 
@@ -44,30 +37,18 @@ If you’re new to any of these, read the following resources first:
 
 ## Repository Structure
 
-### Unencrypted Secrets
-
-- **Path**: `secrets/nix/`
-
-This directory contains plain Nix files (`.nix`), each returning an attribute set of non-sensitive values.
-
-To maintain a consistent and predictable structure across the repository, the file naming scheme in this directory intentionally mirrors that of the [Encrypted Secrets](#encrypted-secrets). While not technically required (the flake imports all `.nix` files regardless of name), adhering to this convention makes it easy to locate secrets by their scope (`shared`, `[user]`, `[host]`, etc.).
-
-For example, non-sensitive git settings for the user `vipul` would reside in `vipul.nix`, just as that user's encrypted API keys would be found in `vipul.yaml`.
-
-All nix files in this directory are automatically imported, and their contents are merged under the `secrets` flake output, accessible via `nix-secrets.secrets.[filename]`.
-
-### Encrypted Secrets
+All secrets in this repository are encrypted with `sops` and are stored under:
 
 - **Path**: `secrets/sops/`
 
-This directory holds sensitive data encrypted with `sops`. The secrets are organized by their intended scope:
+The secret files are organized by their intended scope:
 
 - `shared.yaml`: Secrets common to all machines and users.
 - `[user].yaml`: Secrets specific to a user (e.g., `vipul.yaml`).
 - `[host].yaml`: Secrets specific to a host machine (e.g., `laptop.yaml`).
 - `[user]_[host].yaml`: Secrets for a specific user on a particular machine (e.g., `vipul_laptop.yaml`).
 
-#### Access Control
+### Access Control
 
 Access control to these secret files is managed through a key-based system powered by `age`. The central `.sops.yaml` file defines which keys can decrypt which secret files.
 
@@ -140,26 +121,7 @@ To use this repository in your Nix configuration, add it as an input in your `fl
 }
 ```
 
-### Using Unencrypted Secrets
-
-Unencrypted secrets can be accessed directly from the flake's `secrets` output without needing `sops-nix`.
-
-**Example:**
-
-```nix
-{ inputs, ... }: {
-  programs.git = {
-    userName = inputs.nix-secrets.secrets.vipul.git.vipulog.name;
-    userEmail = inputs.nix-secrets.secrets.vipul.git.vipulog.email;
-  };
-}
-```
-
-### Using Encrypted Secrets
-
-To use encrypted secrets, you need to import and configure `sops-nix` in your NixOS or Home Manager setup.
-
-#### NixOS Configuration
+### NixOS Configuration
 
 **1. Enable `sops-nix` for the Host**
 
@@ -234,7 +196,7 @@ in
 }
 ```
 
-#### Home Manager Configuration
+### Home Manager Configuration
 
 There are two primary methods for enabling `sops-nix` in Home Manager, depending on whether the host system is managed by NixOS.
 
