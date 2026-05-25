@@ -13,12 +13,14 @@ This repository manages secrets for my personal [Nix configurations](https://git
 
 ## Repository Structure
 
-Secrets are encrypted with `sops` and stored in `secrets/sops/`, organized by scope:
+The repository is organized into two main parts:
 
-- `shared.yaml`: Common to all machines and users.
-- `[user].yaml`: User-specific secrets (e.g., `tux.yaml`).
-- `[host].yaml`: Host-specific secrets (e.g., `igloo.yaml`).
-- `[user]_[host].yaml`: User secrets on a specific host (e.g., `tux_igloo.yaml`).
+- `modules/`: Nix flake modules for repository development (formatting, shells, hooks).
+- `secrets/sops/`: Contains all encrypted secret files, organized by scope:
+  - `shared.yaml`: Common to all machines and users.
+  - `[user].yaml`: User-specific secrets (e.g., `tux.yaml`).
+  - `[host].yaml`: Host-specific secrets (e.g., `igloo.yaml`).
+  - `[user]_[host].yaml`: User secrets on a specific host (e.g., `tux_igloo.yaml`).
 
 ### Access Control
 
