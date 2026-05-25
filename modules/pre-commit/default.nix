@@ -28,6 +28,15 @@
           files = "^secrets/sops/.*\.(yaml|yml|json)$";
           entry = "${self'.packages.sops-enc-check}/bin/sops-enc-check";
         };
+
+        sops-updatekeys = {
+          enable = true;
+          name = "sops-updatekeys";
+          description = "Ensure SOPS keys are up to date";
+          language = "script";
+          files = "^\\.sops\\.yaml$|^secrets/sops/.*\\.(yaml|yml|json)$";
+          entry = "${self'.packages.sops-updatekeys}/bin/sops-updatekeys";
+        };
       };
     };
   };
