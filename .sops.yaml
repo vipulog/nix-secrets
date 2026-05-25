@@ -2,10 +2,8 @@ keys:
   users: &users
     - &vipul age1wgsecequ5euu0nzc2s5haqpgvupnldk7r3lzvrmffhew0me3sctquknz95
     - &vipul_laptop age19su0np46dx6pxrvf35ntnzutanlag06cp8rzcejl7vu0h7hfpuasugalkq
-    - &vipul_desktop age1784t8ux2jf766xzcufy2eha64yu7vswv8ra0rg8svxpy6djucgmqztugf7
   hosts: &hosts
     - &laptop age1ydng6kf7rqjk9765fkxpfv7fw54vtux942pvqt43s4jaa5qpyfdqn6225d
-    - &desktop age1lf03nguwawnsgy97y252zlnml9el39gu4pwccfr6cm5pzhhw6fyqxd4rvp
 creation_rules:
   - path_regex: ^secrets/sops/shared\.yaml$
     key_groups:
@@ -13,14 +11,11 @@ creation_rules:
           - *vipul
           - *laptop
           - *vipul_laptop
-          - *desktop
-          - *vipul_desktop
   - path_regex: ^secrets/sops/vipul\.yaml$
     key_groups:
       - age:
           - *vipul
           - *vipul_laptop
-          - *vipul_desktop
   - path_regex: ^secrets/sops/laptop\.yaml$
     key_groups:
       - age:
@@ -31,13 +26,3 @@ creation_rules:
       - age:
           - *vipul
           - *vipul_laptop
-  - path_regex: ^secrets/sops/desktop\.yaml$
-    key_groups:
-      - age:
-          - *vipul
-          - *desktop
-  - path_regex: ^secrets/sops/vipul_desktop\.yaml$
-    key_groups:
-      - age:
-          - *vipul
-          - *vipul_desktop
