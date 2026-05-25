@@ -19,6 +19,7 @@
         check-symlinks.enable = true;
         check-yaml.enable = true;
         treefmt.enable = true;
+        statix.enable = true;
 
         sops-encrypted-check = {
           enable = true;
