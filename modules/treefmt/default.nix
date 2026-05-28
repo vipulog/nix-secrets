@@ -11,8 +11,12 @@
       mdformat.enable = true;
     };
 
-    settings.formatter = {
-      deadnix.no_lambda_arg = true;
+    settings = {
+      excludes = ["secrets/*"];
+
+      formatter = {
+        deadnix.no_lambda_arg = true;
+      };
     };
   };
 }
