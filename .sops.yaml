@@ -1,4 +1,13 @@
 keys:
   users: &users
   hosts: &hosts
+    - &igloo age1fh4tedu9k8ww6cekpgde3a739w8np8h2svrmqm2ng7we57tzs53q86uewe
 creation_rules:
+  - path_regex: ^secrets/sops/shared\.yaml$
+    key_groups:
+      - age:
+          - *igloo
+  - path_regex: ^secrets/sops/igloo\.yaml$
+    key_groups:
+      - age:
+          - *igloo
