@@ -1,5 +1,6 @@
 keys:
   users: &users
+    - &tux_igloo age1g0lkawe6n4peesngqnnf5kh6npe97t4wakcyvmw3jjqqaqpfg48qumancw
   hosts: &hosts
     - &igloo age1fchh9stx97jtn8aruq37lfnwykxfthzk6lzf23t78dw92ap4mv4sqwqc5h
     - &iceberg age1s3rfg0j30tal85hjjhpqmawmjfpvzvfyu684p03d6ay03cmlhf0q8evfxv
@@ -8,11 +9,16 @@ creation_rules:
     key_groups:
       - age:
           - *igloo
+          - *tux_igloo
           - *iceberg
   - path_regex: ^secrets/sops/igloo\.yaml$
     key_groups:
       - age:
           - *igloo
+  - path_regex: ^secrets/sops/tux_igloo\.yaml$
+    key_groups:
+      - age:
+          - *tux_igloo
   - path_regex: ^secrets/sops/iceberg\.yaml$
     key_groups:
       - age:
