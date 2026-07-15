@@ -1,5 +1,6 @@
 keys:
   users: &users
+    - &tux age1ecy9yqckxeh9g8nt7tajjn6e60klnvdg253rss73ltgvyll9f99skv70su
     - &tux_igloo age1g0lkawe6n4peesngqnnf5kh6npe97t4wakcyvmw3jjqqaqpfg48qumancw
     - &tux_iceberg age1d7hqgxvxulh3rf0ca6vurk4q2nvg0rsfflzv0fhyafty4rqssekqv5ad7k
   hosts: &hosts
@@ -9,10 +10,15 @@ creation_rules:
   - path_regex: ^secrets/sops/shared\.yaml$
     key_groups:
       - age:
+          - *tux
           - *igloo
           - *tux_igloo
           - *iceberg
           - *tux_iceberg
+  - path_regex: ^secrets/sops/tux\.yaml$
+    key_groups:
+      - age:
+          - *tux
   - path_regex: ^secrets/sops/igloo\.yaml$
     key_groups:
       - age:
