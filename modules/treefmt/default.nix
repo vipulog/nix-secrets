@@ -13,10 +13,6 @@
 
     settings = {
       excludes = ["secrets/*"];
-
-      formatter = {
-        deadnix.no_lambda_arg = true;
-      };
     };
   };
 }
