@@ -1,5 +1,5 @@
 {
-  description = "Secrets for my Nix configurations.";
+  description = "vipulog's nix configuration secrets.";
 
   outputs = inputs @ {flake-parts, ...}: (
     flake-parts.lib.mkFlake {inherit inputs;} (inputs.import-tree ./modules)
