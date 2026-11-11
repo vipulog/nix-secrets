@@ -4,6 +4,7 @@ keys:
     - &tux_igloo age1g0lkawe6n4peesngqnnf5kh6npe97t4wakcyvmw3jjqqaqpfg48qumancw
   hosts: &hosts
     - &igloo age1fchh9stx97jtn8aruq37lfnwykxfthzk6lzf23t78dw92ap4mv4sqwqc5h
+    - &glacier age1022ydgq63trhjrh3txpjdeu6nfjjwky2s7l2pdh84mjesdyc355qh2gq7q
 creation_rules:
   - path_regex: ^secrets/sops/shared\.yaml$
     key_groups:
@@ -11,6 +12,7 @@ creation_rules:
           - *tux
           - *igloo
           - *tux_igloo
+          - *glacier
   - path_regex: ^secrets/sops/tux\.yaml$
     key_groups:
       - age:
@@ -23,3 +25,7 @@ creation_rules:
     key_groups:
       - age:
           - *tux_igloo
+  - path_regex: ^secrets/sops/glacier\.yaml$
+    key_groups:
+      - age:
+          - *glacier
